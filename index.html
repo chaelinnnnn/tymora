@@ -114,9 +114,16 @@
             padding: 20px;
         }
         
+        .glasses-first-image {
+            width: 100%;
+            height: 30%;
+            object-fit: contain;
+            object-position: center;
+        }
+        
         .glasses-gallery {
             width: 100%;
-            height: 45%;
+            height: 35%;
             position: relative;
             display: flex;
             align-items: center;
@@ -132,7 +139,7 @@
         
         .glasses-secondary-image {
             width: 100%;
-            height: 45%;
+            height: 30%;
             object-fit: contain;
             object-position: center;
         }
@@ -148,21 +155,16 @@
         }
         
         .glass-card {
-            background: rgba(255, 255, 255, 0.1);
+            background: rgba(0, 0, 0, 0.03);
             backdrop-filter: blur(40px);
             border-radius: 24px;
             padding: 60px 50px;
-            border: 1px solid rgba(255, 255, 255, 0.15);
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            border: none;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
         }
         
         .info-category {
-            font-size: 12px;
-            letter-spacing: 2px;
-            color: rgba(255, 255, 255, 0.5);
-            margin-bottom: 20px;
-            text-transform: uppercase;
-            font-weight: 500;
+            display: none;
         }
         
         .info-title {
@@ -170,13 +172,13 @@
             font-weight: 400;
             letter-spacing: -0.5px;
             margin-bottom: 16px;
-            color: #fff;
+            color: #000;
             line-height: 1.2;
         }
         
         .info-subtitle {
             font-size: 18px;
-            color: rgba(255, 255, 255, 0.7);
+            color: rgba(0, 0, 0, 0.6);
             margin-bottom: 40px;
             font-weight: 300;
         }
@@ -184,14 +186,12 @@
         .info-price {
             font-size: 32px;
             font-weight: 400;
-            margin-bottom: 12px;
-            color: #fff;
+            margin-bottom: 40px;
+            color: #000;
         }
         
         .info-price-detail {
-            font-size: 14px;
-            color: rgba(255, 255, 255, 0.5);
-            margin-bottom: 40px;
+            display: none;
         }
         
         .info-buttons {
@@ -200,13 +200,13 @@
         
         .info-description {
             padding-top: 40px;
-            border-top: 1px solid rgba(255, 255, 255, 0.15);
+            border-top: 1px solid rgba(0, 0, 0, 0.1);
         }
         
         .description-title {
             font-size: 11px;
             letter-spacing: 2px;
-            color: rgba(255, 255, 255, 0.5);
+            color: rgba(0, 0, 0, 0.5);
             margin-bottom: 20px;
             text-transform: uppercase;
             font-weight: 500;
@@ -215,7 +215,7 @@
         .description-text {
             font-size: 15px;
             line-height: 1.7;
-            color: rgba(255, 255, 255, 0.7);
+            color: rgba(0, 0, 0, 0.6);
             font-weight: 300;
         }
         
@@ -388,26 +388,25 @@
         <div class="glasses-layout">
             <div class="glasses-visual">
                 <div class="glasses-gallery">
-                    <video src="glass.mp4" class="glasses-image" autoplay loop muted playsinline></video>
+                    <video src="2.mp4" class="glasses-image" autoplay loop muted playsinline></video>
                 </div>
+                <img src="0.png" class="glasses-first-image" alt="Tymora Glasses">
                 <img src="1.png" class="glasses-secondary-image" alt="Tymora Glasses">
             </div>
             
             <div class="glasses-info">
                 <div class="glass-card">
-                    <div class="info-category">HARDWARE</div>
                     <h1 class="info-title">Tymora<br>Glasses</h1>
                     <p class="info-subtitle">AR glasses for time purchase</p>
                     
                     <div class="info-price">$599</div>
-                    <div class="info-price-detail">One-time purchase • Matte Black</div>
                     
                     <div class="info-description">
                         <div class="description-title">Product Details</div>
                         <p class="description-text">
-                            Tymora AR Glasses enable instant time purchases through intuitive touch gestures. 
-                            Lightweight design with all-day battery life. See your remaining time in real-time 
-                            and purchase additional moments with a simple tap.
+                            Experience leisurely moments with Tymora AR Glasses.
+                            Ultra-lightweight titanium frame for all-day use.
+                            Check your time balance with real-time display.
                         </p>
                     </div>
                 </div>
