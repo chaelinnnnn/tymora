@@ -32,12 +32,15 @@
             border-bottom: 1px solid rgba(255, 255, 255, 0.1);
         }
         
+        #glasses-page.active ~ header,
         #time-page.active ~ header {
             background: rgba(255, 255, 255, 0.95);
             backdrop-filter: blur(20px);
             border-bottom: 1px solid rgba(0, 0, 0, 0.1);
         }
         
+        #glasses-page.active ~ header .logo,
+        #glasses-page.active ~ header nav a,
         #time-page.active ~ header .logo,
         #time-page.active ~ header nav a {
             color: #000;
@@ -99,31 +102,29 @@
         .glasses-layout {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            height: 100vh;
-            padding: 100px 50px 50px;
-            gap: 50px;
+            min-height: 100vh;
         }
         
         .glasses-visual {
             display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: center;
-            position: relative;
-            gap: 30px;
-            padding: 20px;
+            justify-content: flex-start;
+            gap: 80px;
+            padding: 150px 50px 100px;
+            overflow-y: auto;
+            height: 100vh;
         }
         
         .glasses-first-image {
             width: 100%;
-            height: 30%;
+            max-width: 600px;
             object-fit: contain;
-            object-position: center;
         }
         
         .glasses-gallery {
             width: 100%;
-            height: 35%;
+            max-width: 600px;
             position: relative;
             display: flex;
             align-items: center;
@@ -132,16 +133,13 @@
         
         .glasses-image {
             width: 100%;
-            height: 100%;
             object-fit: contain;
-            object-position: center;
         }
         
         .glasses-secondary-image {
             width: 100%;
-            height: 30%;
+            max-width: 600px;
             object-fit: contain;
-            object-position: center;
         }
         
         .gallery-nav {
@@ -149,9 +147,13 @@
         }
         
         .glasses-info {
+            position: sticky;
+            top: 0;
+            height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
+            padding: 50px;
         }
         
         .glass-card {
