@@ -428,7 +428,7 @@
                 <!-- 10 minutes -->
                 <div class="time-card" onclick="buyTime('10 minutes', 8)">
                     <div class="time-card-visual">
-                        <canvas class="time-card-3d" data-complexity="1"></canvas>
+                        <canvas class="time-card-3d" data-time="10min"></canvas>
                     </div>
                     <div class="time-card-info">
                         <div class="time-card-duration">10 minutes</div>
@@ -439,7 +439,7 @@
                 <!-- 20 minutes -->
                 <div class="time-card" onclick="buyTime('20 minutes', 15)">
                     <div class="time-card-visual">
-                        <canvas class="time-card-3d" data-complexity="2"></canvas>
+                        <canvas class="time-card-3d" data-time="20min"></canvas>
                     </div>
                     <div class="time-card-info">
                         <div class="time-card-duration">20 minutes</div>
@@ -450,7 +450,7 @@
                 <!-- 30 minutes -->
                 <div class="time-card" onclick="buyTime('30 minutes', 22)">
                     <div class="time-card-visual">
-                        <canvas class="time-card-3d" data-complexity="2"></canvas>
+                        <canvas class="time-card-3d" data-time="30min"></canvas>
                     </div>
                     <div class="time-card-info">
                         <div class="time-card-duration">30 minutes</div>
@@ -461,7 +461,7 @@
                 <!-- 1 hour -->
                 <div class="time-card" onclick="buyTime('1 hour', 65)">
                     <div class="time-card-visual">
-                        <canvas class="time-card-3d" data-complexity="3"></canvas>
+                        <canvas class="time-card-3d" data-time="1hour"></canvas>
                     </div>
                     <div class="time-card-info">
                         <div class="time-card-duration">1 hour</div>
@@ -472,7 +472,7 @@
                 <!-- 3 hours -->
                 <div class="time-card" onclick="buyTime('3 hours', 180)">
                     <div class="time-card-visual">
-                        <canvas class="time-card-3d" data-complexity="4"></canvas>
+                        <canvas class="time-card-3d" data-time="3hours"></canvas>
                     </div>
                     <div class="time-card-info">
                         <div class="time-card-duration">3 hours</div>
@@ -483,7 +483,7 @@
                 <!-- 1 day -->
                 <div class="time-card" onclick="buyTime('1 day', 650)">
                     <div class="time-card-visual">
-                        <canvas class="time-card-3d" data-complexity="4"></canvas>
+                        <canvas class="time-card-3d" data-time="1day"></canvas>
                     </div>
                     <div class="time-card-info">
                         <div class="time-card-duration">1 day</div>
@@ -494,7 +494,7 @@
                 <!-- 3 days -->
                 <div class="time-card" onclick="buyTime('3 days', 1800)">
                     <div class="time-card-visual">
-                        <canvas class="time-card-3d" data-complexity="5"></canvas>
+                        <canvas class="time-card-3d" data-time="3days"></canvas>
                     </div>
                     <div class="time-card-info">
                         <div class="time-card-duration">3 days</div>
@@ -505,7 +505,7 @@
                 <!-- 1 week -->
                 <div class="time-card" onclick="buyTime('1 week', 4200)">
                     <div class="time-card-visual">
-                        <canvas class="time-card-3d" data-complexity="6"></canvas>
+                        <canvas class="time-card-3d" data-time="1week"></canvas>
                     </div>
                     <div class="time-card-info">
                         <div class="time-card-duration">1 week</div>
@@ -570,73 +570,136 @@
             document.getElementById(pageName + '-page').classList.add('active');
         }
         
-        // Glasses gallery
-        let currentGlassesImage = 0;
-        function showGlassesImage(index) {
-            currentGlassesImage = index;
-            const images = document.querySelectorAll('.glasses-image');
-            const dots = document.querySelectorAll('.gallery-nav-dot');
-            
-            images.forEach((img, i) => {
-                img.classList.toggle('active', i === index);
-            });
-            dots.forEach((dot, i) => {
-                dot.classList.toggle('active', i === index);
-            });
-        }
-        
-        setInterval(() => {
-            currentGlassesImage = (currentGlassesImage + 1) % 3;
-            showGlassesImage(currentGlassesImage);
-        }, 4000);
-        
         // Time card purchase
         function buyTime(duration, price) {
             alert('Added ' + duration + ' to cart - $' + price);
         }
         
-        // Three.js setup for multiple cards
+        // Three.js setup for time cards with spiral animations
         const cardScenes = [];
+        
+        // Time configurations matching our created animations
+        const timeConfigs = {
+            '10min': { count: 8, angleStep: 1.2, radiusStart: 5, radiusStep: 6, sizeStart: 35, sizeDec: 3.5, speed: 0.0005, camZ: 70 },
+            '20min': { 
+                rings: [
+                    { count: 1, radius: 0, size: 32 },
+                    { count: 12, radius: 65, size: 20 },
+                    { count: 16, radius: 100, size: 12, angleOffset: 0.2 }
+                ],
+                speed: 0.0004, camZ: 100
+            },
+            '30min': { count: 18, angleStep: 0.6, radiusStart: 20, radiusStep: 5, sizeStart: 30, sizeDec: 1.3, speed: 0.0006, wave: true, camZ: 100 },
+            '1hour': { count: 24, angleStep: 0.52, radiusStart: 15, radiusStep: 4, sizeStart: 32, sizeDec: 0.9, speed: 0.00045, camZ: 100 },
+            '3hours': { count: 20, angleStep: 0.7, radiusStart: 25, radiusStep: 10, sizeStart: 35, sizeDec: 1.4, speed: 0.00055, camZ: 140 },
+            '1day': { count: 35, angleStep: 0.45, radiusStart: 25, radiusStep: 6.5, sizeStart: 38, sizeDec: 0.75, speed: 0.0005, camZ: 170 },
+            '3days': { count: 38, angleStep: 0.42, radiusStart: 30, radiusStep: 5, sizeStart: 40, sizeDec: 0.8, speed: 0.00065, vertical: true, camZ: 200 },
+            '1week': { count: 50, angleStep: 0.35, radiusStart: 30, radiusStep: 5.5, sizeStart: 42, sizeDec: 0.5, speed: 0.00035, camZ: 230 }
+        };
         
         function initTimeCards() {
             const cards = document.querySelectorAll('.time-card-3d');
             
-            cards.forEach((canvas, index) => {
-                const complexity = parseInt(canvas.getAttribute('data-complexity'));
+            cards.forEach((canvas) => {
+                const timeType = canvas.getAttribute('data-time');
+                const config = timeConfigs[timeType];
                 
                 const scene = new THREE.Scene();
-                const camera = new THREE.PerspectiveCamera(45, canvas.offsetWidth / canvas.offsetHeight, 0.1, 1000);
-                camera.position.z = 5;
-                camera.position.y = 1;
+                scene.background = new THREE.Color(0xf5f5f5);
+                
+                const camera = new THREE.PerspectiveCamera(75, 1, 0.1, 1000);
+                camera.position.z = config.camZ || 100;
                 
                 const renderer = new THREE.WebGLRenderer({ 
                     canvas: canvas,
-                    antialias: true, 
-                    alpha: true 
+                    antialias: true
                 });
-                renderer.setSize(canvas.offsetWidth, canvas.offsetHeight);
+                
+                const size = canvas.offsetWidth;
+                renderer.setSize(size, size);
                 renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
                 
-                const ambientLight = new THREE.AmbientLight(0xffffff, 0.8);
-                scene.add(ambientLight);
+                scene.add(new THREE.AmbientLight(0xffffff, 0.6));
                 
-                const light1 = new THREE.DirectionalLight(0xffffff, 1);
-                light1.position.set(5, 5, 5);
-                scene.add(light1);
+                const pl1 = new THREE.PointLight(0xffffff, 1.5, 500);
+                pl1.position.set(100, 100, 150);
+                scene.add(pl1);
                 
-                const light2 = new THREE.DirectionalLight(0xffffff, 0.5);
-                light2.position.set(-5, -5, -5);
-                scene.add(light2);
+                const pl2 = new THREE.PointLight(0xffffff, 1, 500);
+                pl2.position.set(-100, -50, 150);
+                scene.add(pl2);
                 
-                const tubeGroup = createLiquidTube(complexity);
-                scene.add(tubeGroup);
+                const spheres = [];
+                const mat = new THREE.MeshStandardMaterial({
+                    color: 0x606870,
+                    metalness: 0.7,
+                    roughness: 0.4,
+                    emissive: 0x000000,
+                    emissiveIntensity: 0
+                });
+                
+                // Create spheres based on time type
+                if (timeType === '20min') {
+                    // Special case: concentric rings
+                    config.rings.forEach((ring, ringIdx) => {
+                        if (ring.count === 1) {
+                            const s = new THREE.Mesh(
+                                new THREE.SphereGeometry(ring.size * 0.8, 32, 32),
+                                mat.clone()
+                            );
+                            s.userData = { angle: 0, radius: 0, index: 0 };
+                            spheres.push(s);
+                            scene.add(s);
+                        } else {
+                            for (let i = 0; i < ring.count; i++) {
+                                const angle = (Math.PI * 2 / ring.count) * i + (ring.angleOffset || 0);
+                                const s = new THREE.Mesh(
+                                    new THREE.SphereGeometry(ring.size * 0.8, 32, 32),
+                                    mat.clone()
+                                );
+                                s.userData = { angle: angle, radius: ring.radius, index: ringIdx * 20 + i };
+                                spheres.push(s);
+                                scene.add(s);
+                            }
+                        }
+                    });
+                } else {
+                    // Spiral patterns
+                    for (let i = 0; i < config.count; i++) {
+                        const angle = i * config.angleStep;
+                        const radius = config.radiusStart + i * config.radiusStep;
+                        const size = (config.sizeStart - i * config.sizeDec) * 0.8;
+                        
+                        const s = new THREE.Mesh(
+                            new THREE.SphereGeometry(size, 32, 32),
+                            mat.clone()
+                        );
+                        
+                        let userData = { angle: angle, radius: radius, index: i };
+                        
+                        if (config.wave) {
+                            userData.waveAngle = angle + Math.PI/2;
+                            userData.waveOffset = Math.sin(i * 0.9) * 25;
+                        }
+                        
+                        if (config.vertical) {
+                            userData.yOffset = radius - i * 6;
+                            userData.radius = radius * 0.6;
+                        }
+                        
+                        s.userData = userData;
+                        spheres.push(s);
+                        scene.add(s);
+                    }
+                }
                 
                 cardScenes.push({
                     scene,
                     camera,
                     renderer,
-                    tubeGroup,
-                    rotation: 0
+                    spheres,
+                    config,
+                    timeType
                 });
             });
             
@@ -647,108 +710,47 @@
             requestAnimationFrame(animateCards);
             
             cardScenes.forEach(cardScene => {
-                cardScene.rotation += 0.003;
-                cardScene.tubeGroup.rotation.y = cardScene.rotation;
-                cardScene.tubeGroup.rotation.x = 0.3;
+                const time = Date.now() * cardScene.config.speed;
+                
+                cardScene.spheres.forEach(s => {
+                    const { angle, radius, index, waveAngle, waveOffset, yOffset } = s.userData;
+                    
+                    if (waveAngle !== undefined) {
+                        // Wave pattern (30min)
+                        s.position.x = Math.cos(angle + time) * radius + Math.cos(waveAngle + time) * waveOffset;
+                        s.position.y = Math.sin(angle + time) * radius + Math.sin(waveAngle + time) * waveOffset;
+                    } else if (yOffset !== undefined) {
+                        // Vertical pattern (3days)
+                        s.position.x = Math.cos(angle + time) * radius;
+                        s.position.y = Math.sin(angle + time) * radius + yOffset;
+                    } else {
+                        // Standard spiral
+                        s.position.x = Math.cos(angle + time) * radius;
+                        s.position.y = Math.sin(angle + time) * radius;
+                    }
+                    
+                    // Z-depth to prevent overlap
+                    s.position.z = Math.sin(time + index * 0.3) * (index * 5);
+                    s.rotation.y = time * 0.5;
+                });
+                
                 cardScene.renderer.render(cardScene.scene, cardScene.camera);
             });
-        }
-        
-        function createLiquidTube(complexity) {
-            const group = new THREE.Group();
-            const material = new THREE.MeshStandardMaterial({
-                color: 0xffffff,
-                metalness: 0.8,
-                roughness: 0.2,
-                transparent: true,
-                opacity: 0.9
-            });
-            
-            const tubeConfigs = [{
-                points: [
-                    new THREE.Vector3(0, 0, 0),
-                    new THREE.Vector3(0.8, 0.6, 0.2),
-                    new THREE.Vector3(0.4, 1.2, 0),
-                    new THREE.Vector3(-0.4, 1.2, -0.2),
-                    new THREE.Vector3(-0.8, 0.6, 0),
-                    new THREE.Vector3(0, 0, 0.2)
-                ],
-                radius: 0.08
-            }];
-            
-            if (complexity >= 2) {
-                tubeConfigs.push({
-                    points: [
-                        new THREE.Vector3(0, 0, 0),
-                        new THREE.Vector3(-0.6, -0.4, 0.3),
-                        new THREE.Vector3(-0.9, -0.9, 0.1),
-                        new THREE.Vector3(-0.5, -1.3, -0.2)
-                    ],
-                    radius: 0.07
-                });
-            }
-            
-            if (complexity >= 3) {
-                tubeConfigs.push({
-                    points: [
-                        new THREE.Vector3(-0.5, -1.3, -0.2),
-                        new THREE.Vector3(0, -1.5, -0.4),
-                        new THREE.Vector3(0.6, -1.4, -0.2),
-                        new THREE.Vector3(0.9, -0.8, 0)
-                    ],
-                    radius: 0.06
-                });
-            }
-            
-            if (complexity >= 4) {
-                tubeConfigs.push({
-                    points: [
-                        new THREE.Vector3(0.4, 1.2, 0),
-                        new THREE.Vector3(0.8, 1.4, 0.3),
-                        new THREE.Vector3(1.2, 1.2, 0.5),
-                        new THREE.Vector3(1.3, 0.6, 0.3)
-                    ],
-                    radius: 0.065
-                });
-            }
-            
-            if (complexity >= 5) {
-                tubeConfigs.push({
-                    points: [
-                        new THREE.Vector3(-0.8, 0.6, 0),
-                        new THREE.Vector3(-1.2, 0.8, 0.2),
-                        new THREE.Vector3(-1.4, 0.3, 0.4),
-                        new THREE.Vector3(-1.2, -0.2, 0.3)
-                    ],
-                    radius: 0.06
-                });
-            }
-            
-            if (complexity >= 6) {
-                tubeConfigs.push({
-                    points: [
-                        new THREE.Vector3(-0.4, 1.2, -0.2),
-                        new THREE.Vector3(-0.9, 1.3, -0.4),
-                        new THREE.Vector3(-1.3, 1.0, -0.3),
-                        new THREE.Vector3(-1.4, 0.5, 0)
-                    ],
-                    radius: 0.058
-                });
-            }
-            
-            tubeConfigs.forEach(config => {
-                const curve = new THREE.CatmullRomCurve3(config.points);
-                const tubeGeometry = new THREE.TubeGeometry(curve, 64, config.radius, 16, false);
-                const mesh = new THREE.Mesh(tubeGeometry, material);
-                group.add(mesh);
-            });
-            
-            return group;
         }
         
         // Initialize on page load
         window.addEventListener('load', () => {
             setTimeout(initTimeCards, 500);
+        });
+        
+        // Handle window resize
+        window.addEventListener('resize', () => {
+            cardScenes.forEach(cs => {
+                const size = cs.renderer.domElement.offsetWidth;
+                cs.renderer.setSize(size, size);
+                cs.camera.aspect = 1;
+                cs.camera.updateProjectionMatrix();
+            });
         });
     </script>
 </body>
