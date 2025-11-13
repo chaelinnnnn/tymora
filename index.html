@@ -631,12 +631,21 @@
                 
                 const spheres = [];
                 const mat = new THREE.MeshStandardMaterial({
-                    color: 0x606870,
-                    metalness: 0.7,
-                    roughness: 0.4,
+                    color: 0xb8c5d0,
+                    metalness: 0.95,
+                    roughness: 0.1,
                     emissive: 0x000000,
                     emissiveIntensity: 0
                 });
+                
+                // Add better lighting for metallic effect
+                const topLight = new THREE.DirectionalLight(0xffffff, 1.2);
+                topLight.position.set(0, 200, 100);
+                scene.add(topLight);
+                
+                const rimLight = new THREE.DirectionalLight(0xaaccff, 0.8);
+                rimLight.position.set(-100, -100, 50);
+                scene.add(rimLight);
                 
                 // Create spheres based on time type
                 if (timeType === '20min') {
