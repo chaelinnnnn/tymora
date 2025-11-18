@@ -27,13 +27,15 @@
             justify-content: space-between;
             align-items: center;
             z-index: 1000;
-            background: rgba(255, 255, 255, 0.05);
+            background: rgba(0, 0, 0, 0.3);
             backdrop-filter: blur(20px);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
         }
         
         #glasses-page.active ~ header,
-        #time-page.active ~ header {
+        #time-page.active ~ header,
+        #about-page.active ~ header,
+        #time-detail-page.active ~ header {
             background: rgba(255, 255, 255, 0.95);
             backdrop-filter: blur(20px);
             border-bottom: 1px solid rgba(0, 0, 0, 0.1);
@@ -42,7 +44,11 @@
         #glasses-page.active ~ header .logo,
         #glasses-page.active ~ header nav a,
         #time-page.active ~ header .logo,
-        #time-page.active ~ header nav a {
+        #time-page.active ~ header nav a,
+        #about-page.active ~ header .logo,
+        #about-page.active ~ header nav a,
+        #time-detail-page.active ~ header .logo,
+        #time-detail-page.active ~ header nav a {
             color: #000;
         }
         
@@ -223,7 +229,7 @@
         
         /* Time Page */
         #time-page {
-            background: #f8f8f8;
+            background: #ffffff;
             overflow-y: auto;
         }
         
@@ -260,12 +266,7 @@
             width: 100%;
             aspect-ratio: 1;
             position: relative;
-            overflow: hidden;
-            background: #fff;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-bottom: 40px;
+            margin-bottom: 30px;
         }
         
         .time-card-3d {
@@ -273,142 +274,212 @@
             height: 100%;
         }
         
-        .time-card-info {
-            padding: 0;
+        .time-card-content {
             text-align: center;
         }
         
-        .time-card-duration {
-            font-size: 18px;
+        .time-duration {
+            font-size: 24px;
             font-weight: 400;
-            color: #000;
             margin-bottom: 12px;
-            letter-spacing: 0.5px;
-        }
-        
-        .time-card-price {
-            font-size: 18px;
-            font-weight: 400;
             color: #000;
-            margin-bottom: 0;
         }
         
-        .time-card-btn {
-            display: none;
+        .time-price {
+            font-size: 18px;
+            color: rgba(0, 0, 0, 0.6);
+            margin-bottom: 20px;
         }
         
-        .time-visual {
-            display: none;
+        .time-buy {
+            background: #000;
+            color: white;
+            border: none;
+            padding: 12px 32px;
+            font-size: 13px;
+            letter-spacing: 1px;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-transform: uppercase;
         }
         
-        .time-info {
-            display: none;
+        .time-buy:hover {
+            background: #333;
         }
         
         /* About Page */
         #about-page {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
-        }
-        
-        .about-layout {
-            height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 100px 50px 50px;
+            background: #f8f8f8;
             overflow-y: auto;
         }
         
-        .about-content {
-            max-width: 900px;
-            background: rgba(255, 255, 255, 0.15);
-            backdrop-filter: blur(30px);
-            border-radius: 30px;
-            padding: 70px;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
-        }
-        
-        .about-title {
-            font-size: 56px;
-            font-weight: 300;
-            letter-spacing: -2px;
-            margin-bottom: 50px;
-            color: #fff;
+        .about-layout {
+            padding: 160px 100px;
+            max-width: 1200px;
+            margin: 0 auto;
         }
         
         .about-section {
-            margin-bottom: 50px;
+            margin-bottom: 80px;
         }
         
         .about-section h2 {
-            font-size: 24px;
+            font-size: 32px;
             font-weight: 400;
-            letter-spacing: 0.5px;
-            margin-bottom: 20px;
-            color: #fff;
+            margin-bottom: 24px;
+            color: #000;
         }
         
         .about-section p {
-            font-size: 15px;
-            line-height: 1.9;
-            color: rgba(255, 255, 255, 0.8);
-            font-weight: 300;
+            font-size: 16px;
+            line-height: 1.8;
+            color: rgba(0, 0, 0, 0.7);
         }
         
-        @media (max-width: 1200px) {
-            .glasses-layout,
-            .time-layout {
-                grid-template-columns: 1fr;
-                padding: 100px 30px 30px;
-            }
-            
-            header {
-                padding: 20px 30px;
-            }
-            
-            nav {
-                gap: 30px;
-            }
-            
-            .glass-card {
-                padding: 40px 30px;
-            }
-            
-            .about-content {
-                padding: 50px 40px;
-            }
+        /* Time Detail Page */
+        #time-detail-page {
+            background: #ffffff;
+            overflow-y: auto;
+        }
+        
+        .detail-layout {
+            padding: 120px 100px 100px;
+            max-width: 1600px;
+            margin: 0 auto;
+        }
+        
+        .back-button {
+            background: transparent;
+            border: none;
+            font-size: 16px;
+            color: #000;
+            cursor: pointer;
+            padding: 10px 0;
+            margin-bottom: 40px;
+            transition: opacity 0.3s;
+        }
+        
+        .back-button:hover {
+            opacity: 0.6;
+        }
+        
+        .detail-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 100px;
+            align-items: center;
+        }
+        
+        .detail-visual {
+            width: 100%;
+            aspect-ratio: 1;
+        }
+        
+        .detail-3d {
+            width: 100%;
+            height: 100%;
+        }
+        
+        .detail-info {
+            max-width: 600px;
+        }
+        
+        .detail-title {
+            font-size: 48px;
+            font-weight: 400;
+            margin-bottom: 20px;
+            color: #000;
+        }
+        
+        .detail-price {
+            font-size: 36px;
+            font-weight: 400;
+            margin-bottom: 50px;
+            color: #000;
+        }
+        
+        .detail-description {
+            margin-bottom: 50px;
+        }
+        
+        .detail-specs {
+            margin-bottom: 50px;
+        }
+        
+        .spec-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 16px 0;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+        }
+        
+        .spec-label {
+            font-size: 14px;
+            color: rgba(0, 0, 0, 0.5);
+            font-weight: 500;
+        }
+        
+        .spec-value {
+            font-size: 14px;
+            color: #000;
+            font-weight: 400;
+        }
+        
+        .detail-buy-button {
+            background: #000;
+            color: white;
+            border: none;
+            padding: 18px 60px;
+            font-size: 14px;
+            letter-spacing: 1px;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-transform: uppercase;
+            width: 100%;
+        }
+        
+        .detail-buy-button:hover {
+            background: #333;
         }
     </style>
 </head>
 <body>
     <!-- Home Page -->
-    <div id="home-page" class="page active"></div>
+    <div id="home-page" class="page active">
+        <div style="display: flex; align-items: center; justify-content: center; height: 100vh; color: white;">
+            <div style="text-align: center;">
+                <h1 style="font-size: 72px; font-weight: 300; letter-spacing: 12px; margin-bottom: 20px;">TYMORA</h1>
+                <p style="font-size: 18px; letter-spacing: 3px; opacity: 0.9;">TIME REDEFINED</p>
+            </div>
+        </div>
+    </div>
     
     <!-- Glasses Page -->
     <div id="glasses-page" class="page">
         <div class="glasses-layout">
             <div class="glasses-visual">
+                <img src="https://via.placeholder.com/600x400/f5f5f5/cccccc?text=AR+Glasses+Main" alt="Tymora Glasses" class="glasses-first-image">
+                
                 <div class="glasses-gallery">
-                    <video src="2.mp4" class="glasses-image" autoplay loop muted playsinline></video>
+                    <img src="https://via.placeholder.com/600x400/f5f5f5/cccccc?text=AR+Glasses+Detail" alt="Glasses Detail" class="glasses-image">
                 </div>
-                <img src="0.png" class="glasses-first-image" alt="Tymora Glasses">
-                <img src="1.png" class="glasses-secondary-image" alt="Tymora Glasses">
+                
+                <img src="https://via.placeholder.com/600x400/f5f5f5/cccccc?text=AR+Interface" alt="AR Interface" class="glasses-secondary-image">
             </div>
             
             <div class="glasses-info">
                 <div class="glass-card">
-                    <h1 class="info-title">Tymora<br>Glasses</h1>
-                    <p class="info-subtitle">AR glasses for time purchase</p>
-                    
-                    <div class="info-price">$599</div>
+                    <h2 class="info-title">Tymora Vision AR</h2>
+                    <p class="info-subtitle">Time-Tracking Augmented Reality Glasses</p>
+                    <div class="info-price">$2,499</div>
                     
                     <div class="info-description">
-                        <div class="description-title">Product Details</div>
+                        <div class="description-title">DESCRIPTION</div>
                         <p class="description-text">
-                            Experience leisurely moments with Tymora AR Glasses.
-                            Ultra-lightweight titanium frame for all-day use.
-                            Check your time balance with real-time display.
+                            Experience time in a new dimension. Tymora Vision AR glasses seamlessly integrate 
+                            with your daily life, displaying real-time information about your purchased time 
+                            packages. The lightweight titanium frame and advanced holographic display technology 
+                            provide an unprecedented window into your temporal economy.
                         </p>
                     </div>
                 </div>
@@ -419,97 +490,92 @@
     <!-- Time Page -->
     <div id="time-page" class="page">
         <div class="time-layout">
-            <div class="time-header">
-                <h1>Extended Life</h1>
-                <p>Purchase additional time for life's everyday moments</p>
-            </div>
-            
             <div class="time-grid">
-                <!-- 10 minutes -->
-                <div class="time-card" onclick="buyTime('10 minutes', 8)">
+                <div class="time-card" onclick="showTimeDetail('10min', '10 Minutes', '$5')">
                     <div class="time-card-visual">
                         <canvas class="time-card-3d" data-time="10min"></canvas>
                     </div>
-                    <div class="time-card-info">
-                        <div class="time-card-duration">10 minutes</div>
-                        <div class="time-card-price">$8</div>
+                    <div class="time-card-content">
+                        <div class="time-duration">10 Minutes</div>
+                        <div class="time-price">$5</div>
+                        <button class="time-buy" onclick="event.stopPropagation(); buyTime('10 Minutes', 5)">Add to Cart</button>
                     </div>
                 </div>
                 
-                <!-- 20 minutes -->
-                <div class="time-card" onclick="buyTime('20 minutes', 15)">
+                <div class="time-card" onclick="showTimeDetail('20min', '20 Minutes', '$9')">
                     <div class="time-card-visual">
                         <canvas class="time-card-3d" data-time="20min"></canvas>
                     </div>
-                    <div class="time-card-info">
-                        <div class="time-card-duration">20 minutes</div>
-                        <div class="time-card-price">$15</div>
+                    <div class="time-card-content">
+                        <div class="time-duration">20 Minutes</div>
+                        <div class="time-price">$9</div>
+                        <button class="time-buy" onclick="event.stopPropagation(); buyTime('20 Minutes', 9)">Add to Cart</button>
                     </div>
                 </div>
                 
-                <!-- 30 minutes -->
-                <div class="time-card" onclick="buyTime('30 minutes', 22)">
+                <div class="time-card" onclick="showTimeDetail('30min', '30 Minutes', '$13')">
                     <div class="time-card-visual">
                         <canvas class="time-card-3d" data-time="30min"></canvas>
                     </div>
-                    <div class="time-card-info">
-                        <div class="time-card-duration">30 minutes</div>
-                        <div class="time-card-price">$22</div>
+                    <div class="time-card-content">
+                        <div class="time-duration">30 Minutes</div>
+                        <div class="time-price">$13</div>
+                        <button class="time-buy" onclick="event.stopPropagation(); buyTime('30 Minutes', 13)">Add to Cart</button>
                     </div>
                 </div>
                 
-                <!-- 1 hour -->
-                <div class="time-card" onclick="buyTime('1 hour', 65)">
+                <div class="time-card" onclick="showTimeDetail('1hour', '1 Hour', '$25')">
                     <div class="time-card-visual">
                         <canvas class="time-card-3d" data-time="1hour"></canvas>
                     </div>
-                    <div class="time-card-info">
-                        <div class="time-card-duration">1 hour</div>
-                        <div class="time-card-price">$65</div>
+                    <div class="time-card-content">
+                        <div class="time-duration">1 Hour</div>
+                        <div class="time-price">$25</div>
+                        <button class="time-buy" onclick="event.stopPropagation(); buyTime('1 Hour', 25)">Add to Cart</button>
                     </div>
                 </div>
                 
-                <!-- 3 hours -->
-                <div class="time-card" onclick="buyTime('3 hours', 180)">
+                <div class="time-card" onclick="showTimeDetail('3hours', '3 Hours', '$70')">
                     <div class="time-card-visual">
                         <canvas class="time-card-3d" data-time="3hours"></canvas>
                     </div>
-                    <div class="time-card-info">
-                        <div class="time-card-duration">3 hours</div>
-                        <div class="time-card-price">$180</div>
+                    <div class="time-card-content">
+                        <div class="time-duration">3 Hours</div>
+                        <div class="time-price">$70</div>
+                        <button class="time-buy" onclick="event.stopPropagation(); buyTime('3 Hours', 70)">Add to Cart</button>
                     </div>
                 </div>
                 
-                <!-- 1 day -->
-                <div class="time-card" onclick="buyTime('1 day', 650)">
+                <div class="time-card" onclick="showTimeDetail('1day', '1 Day', '$200')">
                     <div class="time-card-visual">
                         <canvas class="time-card-3d" data-time="1day"></canvas>
                     </div>
-                    <div class="time-card-info">
-                        <div class="time-card-duration">1 day</div>
-                        <div class="time-card-price">$650</div>
+                    <div class="time-card-content">
+                        <div class="time-duration">1 Day</div>
+                        <div class="time-price">$200</div>
+                        <button class="time-buy" onclick="event.stopPropagation(); buyTime('1 Day', 200)">Add to Cart</button>
                     </div>
                 </div>
                 
-                <!-- 3 days -->
-                <div class="time-card" onclick="buyTime('3 days', 1800)">
+                <div class="time-card" onclick="showTimeDetail('3days', '3 Days', '$550')">
                     <div class="time-card-visual">
                         <canvas class="time-card-3d" data-time="3days"></canvas>
                     </div>
-                    <div class="time-card-info">
-                        <div class="time-card-duration">3 days</div>
-                        <div class="time-card-price">$1,800</div>
+                    <div class="time-card-content">
+                        <div class="time-duration">3 Days</div>
+                        <div class="time-price">$550</div>
+                        <button class="time-buy" onclick="event.stopPropagation(); buyTime('3 Days', 550)">Add to Cart</button>
                     </div>
                 </div>
                 
-                <!-- 1 week -->
-                <div class="time-card" onclick="buyTime('1 week', 4200)">
+                <div class="time-card" onclick="showTimeDetail('1week', '1 Week', '$1,200')">
                     <div class="time-card-visual">
                         <canvas class="time-card-3d" data-time="1week"></canvas>
                     </div>
-                    <div class="time-card-info">
-                        <div class="time-card-duration">1 week</div>
-                        <div class="time-card-price">$4,200</div>
+                    <div class="time-card-content">
+                        <div class="time-duration">1 Week</div>
+                        <div class="time-price">$1,200</div>
+                        <button class="time-buy" onclick="event.stopPropagation(); buyTime('1 Week', 1200)">Add to Cart</button>
                     </div>
                 </div>
             </div>
@@ -519,32 +585,76 @@
     <!-- About Page -->
     <div id="about-page" class="page">
         <div class="about-layout">
-            <div class="about-content">
-                <h1 class="about-title">About Tymora</h1>
-                
-                <div class="about-section">
-                    <p>
-                        Tymora is a speculative design project exploring the concept of time as a purchasable commodity. 
-                        In a near-future scenario, individuals can buy additional moments to extend their most valuable experiences.
-                    </p>
+            <div class="about-section">
+                <h2>About Tymora</h2>
+                <p>
+                    Tymora is a speculative design project exploring the commodification of time 
+                    in a near-future society. Through AR technology and a fictional marketplace, 
+                    we examine what happens when time becomes a tradeable resource.
+                </p>
+            </div>
+            
+            <div class="about-section">
+                <h2>The Technology</h2>
+                <p>
+                    Our AR glasses feature advanced holographic displays and neural interface technology, 
+                    allowing seamless integration with your temporal purchases. The metallic design reflects 
+                    the precious nature of time itself.
+                </p>
+            </div>
+            
+            <div class="about-section">
+                <h2>Philosophy</h2>
+                <p>
+                    This project questions our relationship with time in an age of instant gratification. 
+                    If time could be bought, what would we choose to extend? What moments are worth the cost? 
+                    Tymora explores these questions through the lens of near-future commerce and wearable technology.
+                </p>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Time Detail Page -->
+    <div id="time-detail-page" class="page">
+        <div class="detail-layout">
+            <button class="back-button" onclick="showPage('time')">← Back</button>
+            
+            <div class="detail-content">
+                <div class="detail-visual">
+                    <canvas id="detail-canvas" class="detail-3d"></canvas>
                 </div>
                 
-                <div class="about-section">
-                    <h2>Concept</h2>
-                    <p>
-                        What if time wasn't just measured, but traded? Tymora imagines a world where running late for coffee, 
-                        needing extra time before an exam, or wanting to extend a vacation becomes as simple as making a purchase. 
-                        Through AR glasses, users can instantly add minutes, hours, or days to their life.
-                    </p>
-                </div>
-                
-                <div class="about-section">
-                    <h2>Philosophy</h2>
-                    <p>
-                        This project questions our relationship with time in an age of instant gratification. 
-                        If time could be bought, what would we choose to extend? What moments are worth the cost? 
-                        Tymora explores these questions through the lens of near-future commerce and wearable technology.
-                    </p>
+                <div class="detail-info">
+                    <h2 class="detail-title" id="detail-title">10 Minutes</h2>
+                    <div class="detail-price" id="detail-price">$5</div>
+                    
+                    <div class="detail-description">
+                        <div class="description-title">DESCRIPTION</div>
+                        <p class="description-text">
+                            Purchase additional time to extend your most precious moments. 
+                            This time package integrates seamlessly with your Tymora Vision AR glasses, 
+                            allowing you to experience enhanced temporal awareness and extend the duration 
+                            of your chosen activities.
+                        </p>
+                    </div>
+                    
+                    <div class="detail-specs">
+                        <div class="description-title">SPECIFICATIONS</div>
+                        <div class="spec-item">
+                            <span class="spec-label">Duration:</span>
+                            <span class="spec-value" id="spec-duration">10 Minutes</span>
+                        </div>
+                        <div class="spec-item">
+                            <span class="spec-label">Activation:</span>
+                            <span class="spec-value">Instant via AR Interface</span>
+                        </div>
+                        <div class="spec-item">
+                            <span class="spec-label">Transferable:</span>
+                            <span class="spec-value">No</span>
+                        </div>
+                    </div>
+                    
+                    <button class="detail-buy-button" onclick="buyTimeFromDetail()">Add to Cart</button>
                 </div>
             </div>
         </div>
@@ -562,6 +672,9 @@
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <script>
+        // Store current time package info
+        let currentTimePackage = { type: '10min', name: '10 Minutes', price: '$5' };
+        
         // Page navigation
         function showPage(pageName) {
             document.querySelectorAll('.page').forEach(page => {
@@ -570,13 +683,139 @@
             document.getElementById(pageName + '-page').classList.add('active');
         }
         
+        // Show time detail page
+        function showTimeDetail(timeType, timeName, price) {
+            currentTimePackage = { type: timeType, name: timeName, price: price };
+            
+            document.getElementById('detail-title').textContent = timeName;
+            document.getElementById('detail-price').textContent = price;
+            document.getElementById('spec-duration').textContent = timeName;
+            
+            showPage('time-detail');
+            
+            // Initialize detail canvas
+            setTimeout(() => {
+                initDetailCanvas(timeType);
+            }, 100);
+        }
+        
         // Time card purchase
         function buyTime(duration, price) {
             alert('Added ' + duration + ' to cart - $' + price);
         }
         
+        // Buy from detail page
+        function buyTimeFromDetail() {
+            alert('Added ' + currentTimePackage.name + ' to cart - ' + currentTimePackage.price);
+        }
+        
         // Three.js setup for time cards with spiral animations
         const cardScenes = [];
+        let detailScene = null;
+        
+        // Initialize detail canvas
+        function initDetailCanvas(timeType) {
+            const canvas = document.getElementById('detail-canvas');
+            const config = timeConfigs[timeType];
+            
+            if (detailScene) {
+                detailScene.renderer.dispose();
+            }
+            
+            const scene = new THREE.Scene();
+            scene.background = new THREE.Color(0xffffff);
+            
+            const camera = new THREE.PerspectiveCamera(75, 1, 0.1, 1000);
+            camera.position.z = config.camZ || 100;
+            
+            const renderer = new THREE.WebGLRenderer({ 
+                canvas: canvas,
+                antialias: true
+            });
+            
+            const size = canvas.offsetWidth;
+            renderer.setSize(size, size);
+            renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+            
+            // Stronger lighting setup
+            scene.add(new THREE.AmbientLight(0xffffff, 1.0));
+            
+            const keyLight = new THREE.DirectionalLight(0xffffff, 2.0);
+            keyLight.position.set(100, 100, 200);
+            scene.add(keyLight);
+            
+            const fillLight = new THREE.DirectionalLight(0xffffff, 1.5);
+            fillLight.position.set(-100, -50, 150);
+            scene.add(fillLight);
+            
+            const backLight = new THREE.DirectionalLight(0xffffff, 1.2);
+            backLight.position.set(0, -100, -100);
+            scene.add(backLight);
+            
+            const topLight = new THREE.PointLight(0xffffff, 2.0, 800);
+            topLight.position.set(0, 200, 200);
+            scene.add(topLight);
+            
+            const spheres = [];
+            const mat = new THREE.MeshStandardMaterial({
+                color: 0xe8e8e8,
+                metalness: 1.0,
+                roughness: 0.15,
+                emissive: 0x000000,
+                emissiveIntensity: 0
+            });
+            
+            // Create spheres based on time type
+            if (config.isCircle) {
+                for (let i = 0; i < config.count; i++) {
+                    const angle = (Math.PI * 2 / config.count) * i;
+                    const s = new THREE.Mesh(
+                        new THREE.SphereGeometry(config.sizeStart * 0.8, 32, 32),
+                        mat.clone()
+                    );
+                    s.userData = { angle: angle, radius: config.radius, index: i };
+                    spheres.push(s);
+                    scene.add(s);
+                }
+            } else {
+                for (let i = 0; i < config.count; i++) {
+                    const angle = i * config.angleStep;
+                    const radius = config.radiusStart + i * config.radiusStep;
+                    const size = (config.sizeStart - i * config.sizeDec) * 0.8;
+                    
+                    const s = new THREE.Mesh(
+                        new THREE.SphereGeometry(size, 32, 32),
+                        mat.clone()
+                    );
+                    
+                    s.userData = { angle: angle, radius: radius, index: i };
+                    spheres.push(s);
+                    scene.add(s);
+                }
+            }
+            
+            detailScene = { scene, camera, renderer, spheres, config };
+            animateDetailCanvas();
+        }
+        
+        function animateDetailCanvas() {
+            if (!detailScene) return;
+            
+            requestAnimationFrame(animateDetailCanvas);
+            
+            const time = Date.now() * detailScene.config.speed;
+            
+            detailScene.spheres.forEach(s => {
+                const { angle, radius, index } = s.userData;
+                
+                s.position.x = Math.cos(angle + time) * radius;
+                s.position.y = Math.sin(angle + time) * radius;
+                s.position.z = Math.sin(time + index * 0.3) * (index * 5);
+                s.rotation.y = time * 0.5;
+            });
+            
+            detailScene.renderer.render(detailScene.scene, detailScene.camera);
+        }
         
         // Progressive spiral evolution: circle → unwinding spiral
         const timeConfigs = {
@@ -613,58 +852,58 @@
             },
             '1hour': { 
                 // Half unwound (50% spiral)
-                count: 28,
-                angleStep: 0.7,
-                radiusStart: 25,
-                radiusStep: 4,
-                sizeStart: 18,
-                sizeDec: 0.35,
-                speed: 0.00045,
-                camZ: 140
+                count: 22,
+                angleStep: 0.62,
+                radiusStart: 28,
+                radiusStep: 3.5,
+                sizeStart: 16,
+                sizeDec: 0.32,
+                speed: 0.0005,
+                camZ: 180
             },
             '3hours': { 
                 // Mostly unwound (70% spiral)
-                count: 38,
-                angleStep: 0.8,
-                radiusStart: 20,
-                radiusStep: 5.5,
-                sizeStart: 22,
-                sizeDec: 0.38,
+                count: 32,
+                angleStep: 0.75,
+                radiusStart: 22,
+                radiusStep: 4.5,
+                sizeStart: 20,
+                sizeDec: 0.35,
                 speed: 0.00055,
                 camZ: 180
             },
             '1day': { 
                 // Almost fully unwound (85% spiral)
                 count: 50,
-                angleStep: 0.9,
-                radiusStart: 18,
-                radiusStep: 6,
+                angleStep: 0.88,
+                radiusStart: 16,
+                radiusStep: 6.5,
                 sizeStart: 26,
-                sizeDec: 0.35,
+                sizeDec: 0.32,
                 speed: 0.0005,
-                camZ: 200
+                camZ: 220
             },
             '3days': { 
                 // Fully unwound (95% spiral)
-                count: 65,
-                angleStep: 1.0,
-                radiusStart: 15,
-                radiusStep: 6.5,
-                sizeStart: 30,
-                sizeDec: 0.32,
+                count: 58,
+                angleStep: 0.95,
+                radiusStart: 14,
+                radiusStep: 6,
+                sizeStart: 28,
+                sizeDec: 0.3,
                 speed: 0.00065,
                 camZ: 240
             },
             '1week': { 
                 // Maximum unwound (100% spiral) - MANY, larger spheres
-                count: 85,
-                angleStep: 1.1,
-                radiusStart: 12,
-                radiusStep: 7,
-                sizeStart: 35,
-                sizeDec: 0.3,
+                count: 90,
+                angleStep: 1.15,
+                radiusStart: 10,
+                radiusStep: 8,
+                sizeStart: 36,
+                sizeDec: 0.28,
                 speed: 0.00035,
-                camZ: 280
+                camZ: 300
             }
         };
         
@@ -676,7 +915,7 @@
                 const config = timeConfigs[timeType];
                 
                 const scene = new THREE.Scene();
-                scene.background = new THREE.Color(0xf5f5f5);
+                scene.background = new THREE.Color(0xffffff);
                 
                 const camera = new THREE.PerspectiveCamera(75, 1, 0.1, 1000);
                 camera.position.z = config.camZ || 100;
@@ -690,33 +929,33 @@
                 renderer.setSize(size, size);
                 renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
                 
-                scene.add(new THREE.AmbientLight(0xffffff, 0.6));
+                // Stronger lighting setup
+                scene.add(new THREE.AmbientLight(0xffffff, 1.0));
                 
-                const pl1 = new THREE.PointLight(0xffffff, 1.5, 500);
-                pl1.position.set(100, 100, 150);
-                scene.add(pl1);
+                const keyLight = new THREE.DirectionalLight(0xffffff, 2.0);
+                keyLight.position.set(100, 100, 200);
+                scene.add(keyLight);
                 
-                const pl2 = new THREE.PointLight(0xffffff, 1, 500);
-                pl2.position.set(-100, -50, 150);
-                scene.add(pl2);
+                const fillLight = new THREE.DirectionalLight(0xffffff, 1.5);
+                fillLight.position.set(-100, -50, 150);
+                scene.add(fillLight);
+                
+                const backLight = new THREE.DirectionalLight(0xffffff, 1.2);
+                backLight.position.set(0, -100, -100);
+                scene.add(backLight);
+                
+                const topLight = new THREE.PointLight(0xffffff, 2.0, 800);
+                topLight.position.set(0, 200, 200);
+                scene.add(topLight);
                 
                 const spheres = [];
                 const mat = new THREE.MeshStandardMaterial({
-                    color: 0xb8c5d0,
-                    metalness: 0.95,
-                    roughness: 0.1,
+                    color: 0xe8e8e8,
+                    metalness: 1.0,
+                    roughness: 0.15,
                     emissive: 0x000000,
                     emissiveIntensity: 0
                 });
-                
-                // Add better lighting for metallic effect
-                const topLight = new THREE.DirectionalLight(0xffffff, 1.2);
-                topLight.position.set(0, 200, 100);
-                scene.add(topLight);
-                
-                const rimLight = new THREE.DirectionalLight(0xaaccff, 0.8);
-                rimLight.position.set(-100, -100, 50);
-                scene.add(rimLight);
                 
                 // Create spheres based on time type
                 if (config.isCircle) {
