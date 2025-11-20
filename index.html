@@ -26,7 +26,6 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            /* 중요: 메뉴가 눌리도록 z-index를 최상위로 설정 */
             z-index: 9999; 
             background: rgba(0, 0, 0, 0.3);
             backdrop-filter: blur(20px);
@@ -90,7 +89,6 @@
             opacity: 0;
             visibility: hidden;
             transition: opacity 0.6s ease, visibility 0.6s ease;
-            /* 중요: 헤더보다 낮게 설정 */
             z-index: 1; 
         }
         
@@ -152,10 +150,6 @@
             object-fit: contain;
         }
         
-        .gallery-nav {
-            display: none;
-        }
-        
         .glasses-info {
             position: sticky;
             top: 0;
@@ -169,14 +163,9 @@
         .glass-card {
             background: transparent;
             backdrop-filter: none;
-            border-radius: 0;
             padding: 60px 50px;
             border: none;
             box-shadow: none;
-        }
-        
-        .info-category {
-            display: none;
         }
         
         .info-title {
@@ -202,14 +191,6 @@
             color: #000;
         }
         
-        .info-price-detail {
-            display: none;
-        }
-        
-        .info-buttons {
-            display: none;
-        }
-        
         .info-description {
             padding-top: 40px;
             border-top: 1px solid rgba(0, 0, 0, 0.1);
@@ -231,46 +212,48 @@
             font-weight: 300;
         }
         
-        /* Time Page */
+        /* --- TIME PAGE RE-STYLING START --- */
         #time-page {
             background: #ffffff;
             overflow-y: auto;
         }
         
         .time-layout {
-            padding: 160px 100px 100px;
+            padding: 180px 80px 100px; /* 좌우 여백 조정 */
             max-width: 1800px;
             margin: 0 auto;
-        }
-        
-        .time-header {
-            display: none;
         }
         
         .time-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: 60px;
+            gap: 40px; /* 간격 조정 */
+            row-gap: 100px; /* 세로 간격 넓게 */
         }
         
         .time-card {
             background: transparent;
-            border-radius: 0;
-            overflow: visible;
             cursor: pointer;
-            transition: transform 0.3s;
             border: none;
+            display: flex;
+            flex-direction: column;
+            position: relative;
         }
         
-        .time-card:hover {
-            transform: translateY(-5px);
-        }
-        
+        /* 3D 캔버스 영역: 깔끔한 박스 느낌 */
         .time-card-visual {
             width: 100%;
-            aspect-ratio: 1;
-            position: relative;
-            margin-bottom: 30px;
+            aspect-ratio: 1.2; /* 가로가 살짝 긴 비율 */
+            background: #fafafa; /* 아주 연한 회색 배경 */
+            margin-bottom: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.3s;
+        }
+
+        .time-card:hover .time-card-visual {
+            background: #f0f0f0; /* 호버 시 배경 약간 진하게 */
         }
         
         .time-card-3d {
@@ -278,38 +261,58 @@
             height: 100%;
         }
         
+        /* 텍스트 영역 레이아웃 */
         .time-card-content {
-            text-align: center;
+            display: flex;
+            justify-content: space-between; /* 텍스트(좌) - 아이콘(우) 분리 */
+            align-items: flex-end;
+            padding: 0 5px;
+        }
+        
+        .time-info-left {
+            text-align: left;
+        }
+
+        /* 작은 가로줄 데코레이션 */
+        .time-deco-line {
+            width: 10px;
+            height: 1px;
+            background: #000;
+            margin-bottom: 12px;
+            opacity: 0.3;
         }
         
         .time-duration {
-            font-size: 24px;
-            font-weight: 400;
-            margin-bottom: 12px;
-            color: #000;
+            font-size: 14px;
+            font-weight: 500;
+            color: #333;
+            margin-bottom: 4px;
+            letter-spacing: -0.2px;
         }
         
         .time-price {
-            font-size: 18px;
-            color: rgba(0, 0, 0, 0.6);
-            margin-bottom: 20px;
+            font-size: 15px;
+            color: #000;
+            font-weight: 600;
         }
         
+        /* 북마크 아이콘 */
+        .time-bookmark {
+            width: 24px;
+            height: 24px;
+            opacity: 0.4;
+            transition: opacity 0.3s;
+        }
+        
+        .time-card:hover .time-bookmark {
+            opacity: 1;
+        }
+        
+        /* 기존 버튼 삭제 */
         .time-buy {
-            background: #000;
-            color: white;
-            border: none;
-            padding: 12px 32px;
-            font-size: 13px;
-            letter-spacing: 1px;
-            cursor: pointer;
-            transition: all 0.3s;
-            text-transform: uppercase;
+            display: none; 
         }
-        
-        .time-buy:hover {
-            background: #333;
-        }
+        /* --- TIME PAGE RE-STYLING END --- */
         
         /* About Page */
         #about-page {
@@ -465,7 +468,7 @@
             </video>
 
             <div class="glasses-gallery">
-                <img src="1.png" alt="Glasses Detail" class="glasses-image">
+                <img src="1.jpg" alt="Glasses Detail" class="glasses-image">
             </div>
 
             <img src="2.png" alt="AR Interface" class="glasses-secondary-image">
@@ -494,14 +497,20 @@
     <div id="time-page" class="page">
         <div class="time-layout">
             <div class="time-grid">
+                
                 <div class="time-card" onclick="showTimeDetail('10min', '10 Minutes', '$5')">
                     <div class="time-card-visual">
                         <canvas class="time-card-3d" data-time="10min"></canvas>
                     </div>
                     <div class="time-card-content">
-                        <div class="time-duration">10 Minutes</div>
-                        <div class="time-price">$5</div>
-                        <button class="time-buy" onclick="event.stopPropagation(); buyTime('10 Minutes', 5)">Add to Cart</button>
+                        <div class="time-info-left">
+                            <div class="time-deco-line"></div>
+                            <div class="time-duration">10 Minutes</div>
+                            <div class="time-price">$5</div>
+                        </div>
+                        <svg class="time-bookmark" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z" />
+                        </svg>
                     </div>
                 </div>
                 
@@ -510,9 +519,14 @@
                         <canvas class="time-card-3d" data-time="20min"></canvas>
                     </div>
                     <div class="time-card-content">
-                        <div class="time-duration">20 Minutes</div>
-                        <div class="time-price">$9</div>
-                        <button class="time-buy" onclick="event.stopPropagation(); buyTime('20 Minutes', 9)">Add to Cart</button>
+                        <div class="time-info-left">
+                            <div class="time-deco-line"></div>
+                            <div class="time-duration">20 Minutes</div>
+                            <div class="time-price">$9</div>
+                        </div>
+                        <svg class="time-bookmark" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z" />
+                        </svg>
                     </div>
                 </div>
                 
@@ -521,9 +535,14 @@
                         <canvas class="time-card-3d" data-time="30min"></canvas>
                     </div>
                     <div class="time-card-content">
-                        <div class="time-duration">30 Minutes</div>
-                        <div class="time-price">$13</div>
-                        <button class="time-buy" onclick="event.stopPropagation(); buyTime('30 Minutes', 13)">Add to Cart</button>
+                        <div class="time-info-left">
+                            <div class="time-deco-line"></div>
+                            <div class="time-duration">30 Minutes</div>
+                            <div class="time-price">$13</div>
+                        </div>
+                        <svg class="time-bookmark" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z" />
+                        </svg>
                     </div>
                 </div>
                 
@@ -532,9 +551,14 @@
                         <canvas class="time-card-3d" data-time="1hour"></canvas>
                     </div>
                     <div class="time-card-content">
-                        <div class="time-duration">1 Hour</div>
-                        <div class="time-price">$25</div>
-                        <button class="time-buy" onclick="event.stopPropagation(); buyTime('1 Hour', 25)">Add to Cart</button>
+                        <div class="time-info-left">
+                            <div class="time-deco-line"></div>
+                            <div class="time-duration">1 Hour</div>
+                            <div class="time-price">$25</div>
+                        </div>
+                        <svg class="time-bookmark" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z" />
+                        </svg>
                     </div>
                 </div>
                 
@@ -543,9 +567,14 @@
                         <canvas class="time-card-3d" data-time="3hours"></canvas>
                     </div>
                     <div class="time-card-content">
-                        <div class="time-duration">3 Hours</div>
-                        <div class="time-price">$70</div>
-                        <button class="time-buy" onclick="event.stopPropagation(); buyTime('3 Hours', 70)">Add to Cart</button>
+                        <div class="time-info-left">
+                            <div class="time-deco-line"></div>
+                            <div class="time-duration">3 Hours</div>
+                            <div class="time-price">$70</div>
+                        </div>
+                        <svg class="time-bookmark" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z" />
+                        </svg>
                     </div>
                 </div>
                 
@@ -554,9 +583,14 @@
                         <canvas class="time-card-3d" data-time="1day"></canvas>
                     </div>
                     <div class="time-card-content">
-                        <div class="time-duration">1 Day</div>
-                        <div class="time-price">$200</div>
-                        <button class="time-buy" onclick="event.stopPropagation(); buyTime('1 Day', 200)">Add to Cart</button>
+                        <div class="time-info-left">
+                            <div class="time-deco-line"></div>
+                            <div class="time-duration">1 Day</div>
+                            <div class="time-price">$200</div>
+                        </div>
+                        <svg class="time-bookmark" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z" />
+                        </svg>
                     </div>
                 </div>
                 
@@ -565,9 +599,14 @@
                         <canvas class="time-card-3d" data-time="3days"></canvas>
                     </div>
                     <div class="time-card-content">
-                        <div class="time-duration">3 Days</div>
-                        <div class="time-price">$550</div>
-                        <button class="time-buy" onclick="event.stopPropagation(); buyTime('3 Days', 550)">Add to Cart</button>
+                        <div class="time-info-left">
+                            <div class="time-deco-line"></div>
+                            <div class="time-duration">3 Days</div>
+                            <div class="time-price">$550</div>
+                        </div>
+                        <svg class="time-bookmark" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z" />
+                        </svg>
                     </div>
                 </div>
                 
@@ -576,9 +615,14 @@
                         <canvas class="time-card-3d" data-time="1week"></canvas>
                     </div>
                     <div class="time-card-content">
-                        <div class="time-duration">1 Week</div>
-                        <div class="time-price">$1,200</div>
-                        <button class="time-buy" onclick="event.stopPropagation(); buyTime('1 Week', 1200)">Add to Cart</button>
+                        <div class="time-info-left">
+                            <div class="time-deco-line"></div>
+                            <div class="time-duration">1 Week</div>
+                            <div class="time-price">$1,200</div>
+                        </div>
+                        <svg class="time-bookmark" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z" />
+                        </svg>
                     </div>
                 </div>
             </div>
@@ -922,7 +966,8 @@
                 
                 const renderer = new THREE.WebGLRenderer({ 
                     canvas: canvas,
-                    antialias: true
+                    antialias: true,
+                    alpha: true /* 배경 투명하게 */
                 });
                 
                 const size = canvas.offsetWidth;
