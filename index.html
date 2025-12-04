@@ -40,10 +40,13 @@
         }
 
         .logo img {
-            height: 22px;
+            height: 20px;
             display: block;
-            filter: invert(0); 
-            transition: filter 0.3s;
+            transition: opacity 0.3s;
+        }
+        
+        .logo:hover img {
+            opacity: 0.7;
         }
 
         nav {
@@ -447,7 +450,7 @@
             </video>
 
             <div class="glasses-gallery">
-                <img src="1.jpg" alt="Glasses Detail" class="glasses-image">
+                <img src="1.png" alt="Glasses Detail" class="glasses-image">
             </div>
 
             <img src="2.png" alt="AR Interface" class="glasses-secondary-image">
@@ -684,7 +687,7 @@
     
     <header>
         <div class="logo" onclick="showPage('home')">
-            <img src="logo.png" alt="TYMORA">
+            <img src="Group_6.png" alt="TYMORA">
         </div>
         <nav>
             <a onclick="showPage('glasses')">Glasses</a>
