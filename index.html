@@ -60,10 +60,8 @@
         }
 
         .logo img {
-            height: 22px; /* 로고 크기 조절 */
+            height: 22px;
             display: block;
-            
-            /* 기본 상태(Home): 검은 로고를 흰색으로 반전 */
             filter: invert(1); 
             transition: filter 0.3s;
         }
@@ -75,7 +73,6 @@
         #time-detail-page.active ~ header .logo img {
             filter: invert(0);
         }
-        /* --------------------- */
 
         nav {
             display: flex;
@@ -113,9 +110,53 @@
             visibility: visible;
         }
         
-        /* Home Page */
+        /* Home Page - 새로운 레이아웃 */
         #home-page {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .home-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            align-items: center;
+            gap: 100px;
+            max-width: 1400px;
+            padding: 0 80px;
+            width: 100%;
+        }
+        
+        .home-text {
+            color: white;
+        }
+        
+        .home-text h1 {
+            font-size: 72px;
+            font-weight: 300;
+            letter-spacing: 12px;
+            margin-bottom: 20px;
+        }
+        
+        .home-text p {
+            font-size: 18px;
+            letter-spacing: 3px;
+            opacity: 0.9;
+        }
+        
+        .home-image {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .home-image img {
+            width: 100%;
+            max-width: 600px;
+            height: auto;
+            object-fit: contain;
+            filter: drop-shadow(0 20px 60px rgba(0, 0, 0, 0.3));
         }
         
         /* Glasses Page */
@@ -364,8 +405,6 @@
             max-width: 1600px;
             margin: 0 auto;
         }
-        
-        /* Back 버튼 스타일 삭제됨 */
 
         .detail-content {
             display: grid;
@@ -449,10 +488,13 @@
 </head>
 <body>
     <div id="home-page" class="page active">
-        <div style="display: flex; align-items: center; justify-content: center; height: 100vh; color: white;">
-            <div style="text-align: center;">
-                <h1 style="font-size: 72px; font-weight: 300; letter-spacing: 12px; margin-bottom: 20px;">TYMORA</h1>
-                <p style="font-size: 18px; letter-spacing: 3px; opacity: 0.9;">TIME REDEFINED</p>
+        <div class="home-container">
+            <div class="home-text">
+                <h1>TYMORA</h1>
+                <p>TIME REDEFINED</p>
+            </div>
+            <div class="home-image">
+                <img src="main.png" alt="Tymora Vision AR Glasses">
             </div>
         </div>
     </div>
@@ -772,7 +814,7 @@
             const renderer = new THREE.WebGLRenderer({ 
                 canvas: canvas,
                 antialias: true,
-                alpha: true /* 배경 투명하게 */
+                alpha: true
             });
             
             const size = canvas.offsetWidth;
@@ -862,7 +904,6 @@
         // Progressive spiral evolution: circle → unwinding spiral
         const timeConfigs = {
             '10min': { 
-                // Perfect condensed circle (0% spiral) - FEW, small spheres
                 count: 8,
                 isCircle: true,
                 radius: 35,
@@ -871,7 +912,6 @@
                 camZ: 180
             },
             '20min': { 
-                // Slightly unwound (10% spiral)
                 count: 12,
                 angleStep: 0.35,
                 radiusStart: 35,
@@ -882,7 +922,6 @@
                 camZ: 190
             },
             '30min': { 
-                // More unwound (30% spiral)
                 count: 18,
                 angleStep: 0.55,
                 radiusStart: 30,
@@ -893,7 +932,6 @@
                 camZ: 200
             },
             '1hour': { 
-                // Half unwound (50% spiral)
                 count: 22,
                 angleStep: 0.62,
                 radiusStart: 28,
@@ -904,7 +942,6 @@
                 camZ: 180
             },
             '3hours': { 
-                // Mostly unwound (70% spiral)
                 count: 32,
                 angleStep: 0.75,
                 radiusStart: 22,
@@ -915,7 +952,6 @@
                 camZ: 180
             },
             '1day': { 
-                // Almost fully unwound (85% spiral)
                 count: 50,
                 angleStep: 0.88,
                 radiusStart: 16,
@@ -926,7 +962,6 @@
                 camZ: 220
             },
             '3days': { 
-                // Fully unwound (95% spiral)
                 count: 58,
                 angleStep: 0.95,
                 radiusStart: 14,
@@ -937,7 +972,6 @@
                 camZ: 240
             },
             '1week': { 
-                // Maximum unwound (100% spiral) - MANY, larger spheres
                 count: 90,
                 angleStep: 1.15,
                 radiusStart: 10,
@@ -965,7 +999,7 @@
                 const renderer = new THREE.WebGLRenderer({ 
                     canvas: canvas,
                     antialias: true,
-                    alpha: true /* 배경 투명하게 */
+                    alpha: true
                 });
                 
                 const size = canvas.offsetWidth;
